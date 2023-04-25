@@ -1,0 +1,23 @@
+import os
+import csv
+
+# Set folder path and label dictionary
+folder_path = 'folder_training'
+label_dict = {'black': 0, 'blue': 1, 'brown': 2, 'green': 3, 'grey': 4, 'orange': 5, 'red': 6, 'violet': 7, 'white': 8, 'yellow': 9}
+
+# Create list of image paths and corresponding labels
+img_paths = []
+labels = []
+for label in label_dict.keys():
+    label_path = os.path.join(folder_path, label)
+    for img_name in os.listdir(label_path):
+        img_path = os.path.join(label_path, img_name)
+        img_paths.append(img_path)
+        labels.append(label_dict[label])
+
+# Write to label.csv
+with open('label.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(["image_path", "label"])
+    for i in range(len(img_paths)):
+        writer.writerow([img_paths[i], labels[i]])
